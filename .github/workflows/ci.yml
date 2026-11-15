@@ -18,6 +18,8 @@ jobs:
       - run: pip install -r requirements.lock
       - run: npm ci
       - run: npm run build
-      - run: git diff --exit-code -- lab/static/lab/app.css
+      - run: npm run typecheck
+      - run: npm test
+      - run: git diff --exit-code -- lab/static/lab/app.css lab/static/lab/app.js
       - run: python manage.py check
       - run: python manage.py test -v 2

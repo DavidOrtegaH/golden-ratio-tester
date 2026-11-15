@@ -195,7 +195,8 @@ class FlowTests(SimpleTestCase):
         client = Client(enforce_csrf_checks=True)
         self.assertEqual(client.post('/language/', {'language': 'en'}).status_code, 403)
         response = client.get('/')
-        self.assertIn("script-src 'none'", response['Content-Security-Policy'])
+        self.assertIn("script-src 'self'", response['Content-Security-Policy'])
+        self.assertNotIn("unsafe-inline", response['Content-Security-Policy'])
         self.assertIn('no-store', response['Cache-Control'])
         token = client.cookies['csrftoken'].value
         valid = client.post('/language/', {'language': 'en', 'csrfmiddlewaretoken': token},
@@ -207,6 +208,11 @@ class FlowTests(SimpleTestCase):
 
     def test_r5_translation_parity(self):
         self.assertEqual(set(COPY['es']), set(COPY['en']))
+        self.assertContains(self.client.get('/'), 'Pegar imagen')
+        self.client.post('/language/', {'language': 'en'})
+        response = self.client.get('/')
+        self.assertContains(response, 'Paste image')
+        self.assertContains(response, '/static/lab/app.js')
 
     def test_r6_expiry_and_memory_bound(self):
         store = ResultStore(ttl=0.04, max_bytes=8)

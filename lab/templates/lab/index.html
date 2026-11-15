@@ -6,10 +6,21 @@
 <div class="upload-panel rounded-4 p-4">
 <h2 class="h5 mb-1">{{ t.upload_title }}</h2><p class="small text-secondary mb-3">{{ t.upload_sub }}</p>
 {% if error %}<div class="alert alert-warning" role="alert">{{ error }}</div>{% endif %}
-<form action="{% url 'home' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+<form action="{% url 'home' %}" method="post" enctype="multipart/form-data"
+ data-controller="image-input" data-action="paste@window->image-input#paste"
+ data-image-input-ready-value="{{ t.paste_ready }}" data-image-input-empty-value="{{ t.paste_empty }}"
+ data-image-input-denied-value="{{ t.paste_denied }}" data-image-input-unsupported-value="{{ t.paste_unsupported }}"
+ data-image-input-size-value="{{ t.size }}" data-image-input-format-value="{{ t.format }}">{% csrf_token %}
 <div class="upload-zone p-3 mb-3"><label for="image" class="form-label fw-semibold">{{ t.file }}</label>
-<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required class="form-control" aria-describedby="formats">
+<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required class="form-control" aria-describedby="formats" data-image-input-target="input" data-action="change->image-input#changed">
 <p class="small text-secondary mt-2 mb-0" id="formats">{{ t.formats }}</p></div>
+<div hidden data-image-input-target="tools" class="mb-3">
+<div tabindex="0" class="upload-zone p-3" aria-label="{{ t.paste_hint }}">
+<button type="button" class="btn btn-outline-primary" data-image-input-target="button" data-action="image-input#read">{{ t.paste_button }}</button>
+<p class="small text-secondary mt-2 mb-0">{{ t.paste_hint }}</p></div>
+<p class="small mt-2 mb-0" role="status" aria-live="polite" data-image-input-target="status"></p>
+<img hidden data-image-input-target="preview" class="img-fluid rounded-3 border mt-2" alt="{{ t.paste_preview }}" width="320">
+</div>
 <button class="btn btn-primary w-100 fw-semibold" type="submit">{{ t.analyze }}</button>
 <p class="text-center small text-secondary mt-3 mb-0">{{ t.temporary }}</p>
 </form></div></div>
@@ -22,3 +33,4 @@
 <div class="row g-4"><div class="col-md-4"><span class="step-number">01.</span><h3 class="h5 mt-2">{{ t.step1 }}</h3><p class="text-secondary small mb-0">{{ t.step1_body }}</p></div><div class="col-md-4"><span class="step-number">02.</span><h3 class="h5 mt-2">{{ t.step2 }}</h3><p class="text-secondary small mb-0">{{ t.step2_body }}</p></div><div class="col-md-4"><span class="step-number">03.</span><h3 class="h5 mt-2">{{ t.step3 }}</h3><p class="text-secondary small mb-0">{{ t.step3_body }}</p></div></div></section>
 <section class="pt-5"><h2 class="h5">{{ t.limits_title }}</h2><p class="text-secondary small">{{ t.limits }}</p><a href="{{ t.wiki_url }}" target="_blank" rel="noopener noreferrer" class="fw-semibold small">{{ t.wiki }}</a></section>
 {% endblock %}
+{% block scripts %}<script src="{% static 'lab/app.js' %}" defer></script>{% endblock %}

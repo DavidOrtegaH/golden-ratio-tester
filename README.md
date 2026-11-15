@@ -18,7 +18,8 @@ licencia en las copias o partes sustanciales del software.
 - Permite mostrar/ocultar las guías y descargar un PNG anotado a la resolución original
   normalizada por orientación EXIF. La descarga no incluye metadatos del original.
 - Selector Español/English con banderas, Wikipedia por idioma y cookie de preferencia.
-- Interfaz responsive con formularios estándar, sin JavaScript de aplicación.
+- Pega una imagen con Ctrl+V / ⌘V o el botón «Pegar imagen», con vista previa local.
+- Interfaz responsive con formularios estándar y mejora progresiva con TypeScript + Stimulus.
 - Elimina imágenes al pulsar el botón o al expirar el plazo de 15 minutos.
 
 ## Qué NO demuestra
@@ -61,7 +62,8 @@ la espiral logarítmica áurea.
 ## Stack
 
 Python 3.12+, Django 5.2 LTS, OpenCV, NumPy, SciPy, scikit-image y Pillow.
-Interfaz con plantillas Django, Bootstrap 5 y Sass. No requiere base de datos.
+Interfaz con plantillas Django, Bootstrap 5 y Sass. Pegado con TypeScript y Stimulus,
+compilado mediante esbuild. No requiere base de datos.
 Las dependencias exactas probadas están en `requirements.lock` y `package-lock.json`.
 Waitress está disponible para un servidor WSGI de un único proceso.
 
@@ -76,7 +78,8 @@ npm.cmd run build
 ```
 
 Abre http://127.0.0.1:8000 en un navegador normal. No hay migraciones ni cuentas.
-El CSS compilado está versionado; Node solo es necesario para modificar Sass.
+El CSS y el script compilados están versionados; Node se necesita al modificar
+Sass o TypeScript. `npm run build` recompila ambos.
 En Linux/macOS sustituye `.venv/Scripts/python.exe` por `.venv/bin/python` y `npm.cmd` por `npm`.
 
 ## SpecDD y comprobación
@@ -99,7 +102,10 @@ y admite fotografías locales opcionales mediante `--photos <carpeta>`.
 También se verificó el flujo HTTP real contra el servidor local: selección de
 idioma, CSRF con origen válido, subida, análisis, ocultación de guías, descarga
 PNG y eliminación. Todos estos pasos pasaron.
-CI repite las pruebas y comprueba que el Sass compilado no tenga cambios pendientes.
+El pegado tiene además 7 pruebas de eventos/UI en jsdom y comprobación de tipos:
+`npm test` y `npm run typecheck`. Se verificaron en el navegador integrado tanto
+Ctrl+V como el botón, la vista previa y el envío nativo hasta obtener un resultado.
+CI ejecuta estas comprobaciones y verifica los dos archivos compilados.
 
 Ramas: `feature` → `develop` → `release` → `main`. Conventional Commits en inglés.
 Consulta [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -107,7 +113,10 @@ Consulta [CONTRIBUTING.md](CONTRIBUTING.md).
 ### Compatibilidad
 
 Diseñado para versiones actuales de Chrome, Edge, Firefox y Safari, incluyendo
-navegadores móviles. No depende de JavaScript ni de APIs experimentales.
+navegadores móviles. Seleccionar archivos y analizar funciona sin JavaScript.
+El pegado usa el evento paste y, para el botón, Clipboard API cuando está disponible.
+El botón puede requerir permiso y HTTPS (o localhost); si falla, se muestra una
+alternativa con Ctrl+V / ⌘V o selección de archivo. Copiar un enlace no copia la imagen.
 Se han comprobado anchuras de 390 y 768 píxeles en el navegador integrado sin
 desbordamiento horizontal. **La matriz de navegadores externos y dispositivos
 físicos todavía no está verificada.** Los formularios del navegador integrado
@@ -116,6 +125,16 @@ host local y conexión desde loopback. La cookie y el token CSRF siguen siendo
 obligatorios. En producción y para otros clientes se conservan las verificaciones
 estrictas de Django. Se usa `Referrer-Policy: same-origin` para permitir formularios
 HTTPS sin Origin y evitar filtrar URLs de resultados a sitios externos.
+
+## Pegar una imagen
+
+Copia una imagen (opción «Copiar imagen» del navegador) o una captura de pantalla,
+vuelve a la página principal y pulsa Ctrl+V / ⌘V. También puedes usar «Pegar imagen».
+Revisa la vista previa y pulsa «Analizar imagen». Pegar no sube la imagen por sí solo.
+La selección de archivos sustituye a lo pegado, y pegar sustituye al archivo anterior.
+Los límites y validaciones del servidor son los mismos para ambas opciones.
+No se leen textos, enlaces ni historial del portapapeles; solo la imagen de la acción
+explícita de pegar o pulsar el botón. La vista previa es una URL local temporal.
 
 ## Privacidad y cookies
 
@@ -172,6 +191,7 @@ Golden Ratio Tester is a bilingual, open-source image geometry analyzer. It repo
 golden rectangles and isolated logarithmic spiral strokes, with measurements and
 downloadable overlays. It does not prove artistic intent or find every relationship
 in arbitrary photographs. Run the Django application using the commands above;
-select English in the header. No database, account or application JavaScript is needed.
+select English in the header. No database or account is needed. Clipboard input uses TypeScript + Stimulus;
+file uploads also work without client scripts.
 
 Original author: David (DavidOrtegaH). MIT licensed; retain the copyright and license.

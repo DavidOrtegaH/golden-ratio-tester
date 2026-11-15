@@ -10,6 +10,7 @@ Branches: `feature` → `develop` → `release` → `main`. Use pull requests fo
 changes and English Conventional Commits, e.g. `feat: detect rotated golden rectangles`.
 The initial release is fast-forwarded across the four branches after validation.
 
-Run `npm ci`, `npm run build`, `python manage.py check`, and `python manage.py test`.
+Run `npm ci`, `npm run build`, `npm run typecheck`, `npm test`,
+`python manage.py check`, and `python manage.py test`.
 Do not commit uploads, tokens, personal filenames, secrets, or downloaded reference art.
 Do not claim measured accuracy on photographs without a labeled validation dataset.

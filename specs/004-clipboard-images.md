@@ -17,3 +17,16 @@
   with no inline scripts or external scripts.
 - Verify paste/file replacement, preview cleanup, errors, button reads and native
   form submission integration; retain Django flow/CSRF checks.
+
+## Verification
+
+- TypeScript type check and seven Stimulus/jsdom tests pass: paste, replacement,
+  text-only/type/size rejection, explicit button read, denial/unsupported API,
+  async races and object URL cleanup.
+- The six Django flow tests pass, including localized copy, static script inclusion,
+  multipart upload, CSRF, export, locale and deletion. Geometry code is unchanged.
+- Real embedded-browser test: explicit clipboard image write, Paste image click,
+  preview, native Analyze submit produced one golden frame. A fresh upload page
+  accepted Ctrl+V and displayed the preview/status without submitting.
+- Self-only external script CSP; blob previews allowed. File selection remains the
+  no-script fallback. External browser/device matrix remains unverified.

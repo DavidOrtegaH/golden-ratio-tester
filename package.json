@@ -2,6 +2,22 @@
   "name": "golden-ratio-tester",
   "private": true,
   "version": "0.1.0",
-  "scripts": {"build": "sass --silence-deprecation=import,global-builtin,color-functions styles/app.scss lab/static/lab/app.css --style=compressed --no-source-map"},
-  "devDependencies": {"bootstrap": "^5.3.8", "sass": "^1.93.0"}
+  "scripts": {
+    "build": "npm run build:styles && npm run build:scripts",
+    "build:styles": "sass --silence-deprecation=import,global-builtin,color-functions styles/app.scss lab/static/lab/app.css --style=compressed --no-source-map",
+    "build:scripts": "esbuild frontend/app.ts --bundle --minify --target=es2020 --outfile=lab/static/lab/app.js",
+    "typecheck": "tsc",
+    "test": "esbuild tests/clipboard.test.ts --bundle --platform=node --packages=external --format=esm --outfile=artifacts/tests/clipboard.test.mjs && node --test artifacts/tests/clipboard.test.mjs"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^30.0.0",
+    "bootstrap": "^5.3.8",
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.1",
+    "sass": "^1.93.0",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2"
+  }
 }
