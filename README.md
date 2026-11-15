@@ -18,7 +18,7 @@ licencia en las copias o partes sustanciales del software.
 - Permite mostrar/ocultar las guías y descargar un PNG anotado a la resolución original
   normalizada por orientación EXIF. La descarga no incluye metadatos del original.
 - Selector Español/English con banderas, Wikipedia por idioma y cookie de preferencia.
-- Pega una imagen con Ctrl+V / ⌘V o el botón «Pegar imagen», con vista previa local.
+- Pega una imagen con Ctrl+V / ⌘V, con vista previa local.
 - Interfaz responsive con formularios estándar y mejora progresiva con TypeScript + Stimulus.
 - Elimina imágenes al pulsar el botón o al expirar el plazo de 15 minutos.
 
@@ -102,9 +102,8 @@ y admite fotografías locales opcionales mediante `--photos <carpeta>`.
 También se verificó el flujo HTTP real contra el servidor local: selección de
 idioma, CSRF con origen válido, subida, análisis, ocultación de guías, descarga
 PNG y eliminación. Todos estos pasos pasaron.
-El pegado tiene además 7 pruebas de eventos/UI en jsdom y comprobación de tipos:
-`npm test` y `npm run typecheck`. Se verificaron en el navegador integrado tanto
-Ctrl+V como el botón, la vista previa y el envío nativo hasta obtener un resultado.
+El pegado tiene además 4 pruebas de eventos/UI en jsdom y comprobación de tipos:
+`npm test` y `npm run typecheck`. Se verificaron en el navegador integrado Ctrl+V, la vista previa y el envío nativo hasta obtener un resultado.
 CI ejecuta estas comprobaciones y verifica los dos archivos compilados.
 
 Ramas: `feature` → `develop` → `release` → `main`. Conventional Commits en inglés.
@@ -114,9 +113,9 @@ Consulta [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Diseñado para versiones actuales de Chrome, Edge, Firefox y Safari, incluyendo
 navegadores móviles. Seleccionar archivos y analizar funciona sin JavaScript.
-El pegado usa el evento paste y, para el botón, Clipboard API cuando está disponible.
-El botón puede requerir permiso y HTTPS (o localhost); si falla, se muestra una
-alternativa con Ctrl+V / ⌘V o selección de archivo. Copiar un enlace no copia la imagen.
+El pegado usa el evento paste de la acción explícita Ctrl+V / ⌘V.
+Se indica en texto dentro de la misma zona de selección, sin botón de pegar.
+Copiar un enlace no copia la imagen.
 Se han comprobado anchuras de 390 y 768 píxeles en el navegador integrado sin
 desbordamiento horizontal. **La matriz de navegadores externos y dispositivos
 físicos todavía no está verificada.** Los formularios del navegador integrado
@@ -129,12 +128,12 @@ HTTPS sin Origin y evitar filtrar URLs de resultados a sitios externos.
 ## Pegar una imagen
 
 Copia una imagen (opción «Copiar imagen» del navegador) o una captura de pantalla,
-vuelve a la página principal y pulsa Ctrl+V / ⌘V. También puedes usar «Pegar imagen».
+vuelve a la página principal y pulsa Ctrl+V / ⌘V.
 Revisa la vista previa y pulsa «Analizar imagen». Pegar no sube la imagen por sí solo.
 La selección de archivos sustituye a lo pegado, y pegar sustituye al archivo anterior.
 Los límites y validaciones del servidor son los mismos para ambas opciones.
 No se leen textos, enlaces ni historial del portapapeles; solo la imagen de la acción
-explícita de pegar o pulsar el botón. La vista previa es una URL local temporal.
+explícita de pegar. La vista previa es una URL local temporal.
 
 ## Privacidad y cookies
 

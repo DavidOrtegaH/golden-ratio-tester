@@ -6,18 +6,16 @@ import ImageInputController from "../frontend/image_input_controller";
 
 const dom = new JSDOM(`<form data-controller="image-input" data-action="paste@window->image-input#paste"
  data-image-input-ready-value="ready" data-image-input-empty-value="empty"
- data-image-input-denied-value="denied" data-image-input-unsupported-value="unsupported"
+ data-image-input-unsupported-value="unsupported"
  data-image-input-size-value="large" data-image-input-format-value="format">
  <input type="file" name="image" required data-image-input-target="input" data-action="change->image-input#changed">
- <div hidden data-image-input-target="tools"><button type="button" data-image-input-target="button" data-action="image-input#read">Paste</button></div>
+ <div hidden data-image-input-target="tools">Paste with Ctrl+V or Cmd+V</div>
  <p data-image-input-target="status"></p><img hidden data-image-input-target="preview">
  </form>`, { url: "http://localhost/" });
 const window = dom.window;
 for (const name of ["window", "document", "MutationObserver", "Element", "Node", "HTMLElement", "KeyboardEvent", "MouseEvent", "File"] as const) {
   Object.defineProperty(globalThis, name, { configurable: true, value: name === "window" ? window : (window as any)[name] });
 }
-const clipboard: { read?: () => Promise<any[]> } = {};
-Object.defineProperty(globalThis, "navigator", { configurable: true, value: { clipboard } });
 const revoked: string[] = [];
 let serial = 0;
 URL.createObjectURL = () => `blob:test-${++serial}`;
@@ -35,7 +33,6 @@ let files: File[] = [];
 Object.defineProperty(input, "files", { get: () => files, set: value => { files = value; } });
 const status = window.document.querySelector("p")!;
 const preview = window.document.querySelector("img")!;
-const button = window.document.querySelector("button")!;
 const app = Application.start(window.document.documentElement);
 app.register("image-input", ImageInputController);
 const tick = () => new Promise(resolve => setTimeout(resolve, 0));
@@ -82,36 +79,6 @@ test("text-only, unsupported and oversized images preserve the selection", () =>
   paste(large);
   assert.equal(status.textContent, "large");
   assert.equal(input.files![0], selected);
-});
-
-test("paste button reads images only on explicit click", async () => {
-  let reads = 0;
-  clipboard.read = async () => { reads++; return [{ types: ["text/plain", "image/png"], getType: async () => new Blob(["image"], { type: "image/png" }) }]; };
-  assert.equal(reads, 0);
-  button.click(); await tick();
-  assert.equal(reads, 1);
-  assert.equal(input.files![0].name, "clipboard.png");
-  assert.equal(button.disabled, false);
-  assert.equal(submits, 0);
-});
-
-test("clipboard denial, empty result and unsupported API show guidance", async () => {
-  clipboard.read = async () => { throw new Error("denied"); };
-  await controller.read(); assert.equal(status.textContent, "denied");
-  clipboard.read = async () => [];
-  await controller.read(); assert.equal(status.textContent, "empty");
-  delete clipboard.read;
-  await controller.read(); assert.equal(status.textContent, "unsupported");
-});
-
-test("late clipboard reads cannot replace a newer selected file", async () => {
-  let resolve!: (value: any[]) => void;
-  clipboard.read = () => new Promise(done => { resolve = done; });
-  const pending = controller.read();
-  files = [image("newer.png")]; controller.changed();
-  resolve([{ types: ["image/png"], getType: async () => new Blob(["image"]) }]);
-  await pending;
-  assert.equal(input.files![0].name, "newer.png");
 });
 
 test("disconnect revokes the final preview URL", () => {

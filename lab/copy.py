@@ -1,10 +1,9 @@
 COPY = {
     'es': {
         'image_area': 'Sube o pega una imagen',
-        'paste_button': 'Pegar imagen', 'paste_hint': 'También puedes copiar una imagen y pegarla aquí con Ctrl+V o ⌘V. La imagen se enviará cuando pulses Analizar.',
+        'paste_hint': 'También puedes copiar una imagen y pegarla aquí con Ctrl+V o ⌘V. La imagen se enviará cuando pulses Analizar.',
         'paste_ready': 'Imagen preparada. Pulsa Analizar imagen para continuar.', 'paste_empty': 'No hay una imagen copiada. Usa «Copiar imagen» o copia una captura; un enlace no es una imagen.',
-        'paste_denied': 'No se pudo leer el portapapeles. Prueba Ctrl+V o ⌘V en la página, o selecciona un archivo.',
-        'paste_unsupported': 'Este navegador no permite pegar con el botón. Prueba Ctrl+V o ⌘V, o selecciona un archivo.',
+        'paste_unsupported': 'No se pudo preparar la imagen pegada. Selecciona un archivo.',
         'paste_preview': 'Vista previa de la imagen seleccionada',
 
         'tagline': 'GEOMETRÍA, NO CASUALIDAD', 'nav': 'Cómo funciona', 'privacy': 'Privacidad y cookies',
@@ -43,10 +42,9 @@ COPY = {
     },
     'en': {
         'image_area': 'Upload or paste an image',
-        'paste_button': 'Paste image', 'paste_hint': 'You can also copy an image and paste it here with Ctrl+V or ⌘V. It is sent only when you press Analyze.',
+        'paste_hint': 'You can also copy an image and paste it here with Ctrl+V or ⌘V. It is sent only when you press Analyze.',
         'paste_ready': 'Image ready. Press Analyze image to continue.', 'paste_empty': 'No copied image found. Use Copy image or copy a screenshot; a link is not an image.',
-        'paste_denied': 'Could not read the clipboard. Try Ctrl+V or ⌘V on the page, or choose a file.',
-        'paste_unsupported': 'This browser cannot paste using the button. Try Ctrl+V or ⌘V, or choose a file.',
+        'paste_unsupported': 'Could not prepare the pasted image. Choose a file.',
         'paste_preview': 'Preview of the selected image',
 
         'tagline': 'GEOMETRY, NOT COINCIDENCE', 'nav': 'How it works', 'privacy': 'Privacy & cookies',

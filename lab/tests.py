@@ -208,10 +208,10 @@ class FlowTests(SimpleTestCase):
 
     def test_r5_translation_parity(self):
         self.assertEqual(set(COPY['es']), set(COPY['en']))
-        self.assertContains(self.client.get('/'), 'Pegar imagen')
+        self.assertContains(self.client.get('/'), 'Ctrl+V o ⌘V')
         self.client.post('/language/', {'language': 'en'})
         response = self.client.get('/')
-        self.assertContains(response, 'Paste image')
+        self.assertContains(response, 'Ctrl+V or ⌘V')
         self.assertContains(response, '/static/lab/app.js')
 
     def test_r6_expiry_and_memory_bound(self):
