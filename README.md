@@ -80,6 +80,9 @@ npm.cmd run build
 Las 13 pruebas cubren positivos y negativos sintéticos, ambos sentidos de giro,
 deduplicación, subida inválida, idiomas, CSRF, descarga, eliminación y caducidad.
 No equivalen a una evaluación estadística del detector sobre fotografías reales.
+También se verificó el flujo HTTP real contra el servidor local: selección de
+idioma, CSRF con origen válido, subida, análisis, ocultación de guías, descarga
+PNG y eliminación. Todos estos pasos pasaron.
 CI repite las pruebas y comprueba que el Sass compilado no tenga cambios pendientes.
 
 Ramas: `feature` → `develop` → `release` → `main`. Conventional Commits en inglés.
@@ -99,7 +102,7 @@ navegador normal. No se ha relajado CSRF para acomodar esa limitación.
 
 Las imágenes se envían al servidor local que ejecuta la aplicación, se decodifican
 y se mantienen solo en memoria. No se envían a proveedores de IA ni se usan para
-entrenamiento. El almacén admite hasta 192 MiB de PNGs normalizados y anotados;
+entrenamiento. El almacén admite hasta 32 resultados y 192 MiB de PNGs normalizados y anotados;
 los resultados antiguos pueden expulsarse antes de 15 minutos. Se usa un token
 aleatorio de acceso: quien tenga la URL puede ver ese resultado mientras exista.
 Las respuestas incluyen `no-store`, `no-referrer`, CSP y exclusión de indexación.
@@ -134,6 +137,10 @@ un Worker JavaScript sin cambiar la arquitectura.
    `--url-scheme=https` solo es correcto detrás del proxy HTTPS indicado.
 5. Ejecuta `manage.py check --deploy` con el entorno de producción y completa
    las pruebas en navegadores reales. Configura HTTPS/CSRF de acuerdo con tu proxy.
+
+La comprobación de producción realizada dejó dos avisos deliberadamente pendientes:
+HSTS para todos los subdominios y HSTS preload. Deben decidirse con el dominio real;
+no se activan de forma indiscriminada desde este proyecto.
 
 No uses varios procesos o réplicas: los resultados viven en la memoria de uno solo.
 El análisis está limitado a uno simultáneo; las peticiones concurrentes reciben

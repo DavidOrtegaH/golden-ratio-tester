@@ -36,3 +36,6 @@ Synthetic positive/negative rectangles and spirals; duplicate suppression; corru
 - User reference diagrams were inspected locally without copying into the repository: first diagram produced two rectangular candidates; second produced one. Overlapping guides prevent isolated-stroke spiral detection, an explicit current limitation.
 - Responsive DOM width checks at 390 and 768 pixels showed no horizontal document overflow. Full external browser/device testing remains pending: embedded browser posts had a null origin (correctly rejected by CSRF); native browser automation was unavailable.
 - Public repository and MIT license requested by the user; retain original author David (DavidOrtegaH). No third-party reference images are redistributed.
+- Real local HTTP flow passed: same-origin CSRF, language cookie, multipart upload, analysis, overlay toggle, full-resolution PNG attachment and deletion. Cross-origin rejection also has automated coverage.
+- Memory store is additionally bounded to 32 results; eviction cancels expiry timers.
+- Production deployment check has only the domain-dependent HSTS subdomains/preload warnings, intentionally deferred until a real hosting domain is selected.
