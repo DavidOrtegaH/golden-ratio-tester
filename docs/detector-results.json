@@ -1,0 +1,123 @@
+[
+  {
+    "name": "textured-crossing",
+    "category": "synthetic-positive",
+    "seconds": 2.596,
+    "candidates": [
+      {
+        "kind": "spiral",
+        "error": 0.3048324730679513,
+        "ratio": 1.618033988749895,
+        "growth": 1.6016943214822665,
+        "support": 100.0,
+        "metric": "radial"
+      }
+    ],
+    "source": null
+  },
+  {
+    "name": "camera",
+    "category": "photo-control-unlabeled",
+    "seconds": 9.038,
+    "candidates": [],
+    "source": null
+  },
+  {
+    "name": "coffee",
+    "category": "photo-control-unlabeled",
+    "seconds": 9.099,
+    "candidates": [],
+    "source": null
+  },
+  {
+    "name": "astronaut",
+    "category": "photo-control-unlabeled",
+    "seconds": 4.948,
+    "candidates": [],
+    "source": null
+  },
+  {
+    "name": "chelsea",
+    "category": "photo-control-unlabeled",
+    "seconds": 1.432,
+    "candidates": [],
+    "source": null
+  },
+  {
+    "name": "coffee-composite",
+    "category": "synthetic-curve-on-photo",
+    "seconds": 19.896,
+    "candidates": [
+      {
+        "kind": "spiral",
+        "error": 0.7926068937298935,
+        "ratio": 1.618033988749895,
+        "growth": 1.6444593213921046,
+        "support": 88.0,
+        "metric": "edge_distance"
+      }
+    ],
+    "source": null
+  },
+  {
+    "name": "ontario.jpg",
+    "category": "external-photo-unlabeled",
+    "seconds": 6.864,
+    "candidates": [],
+    "source": [
+      "https://commons.wikimedia.org/wiki/File:Golden_Spiral.jpg",
+      "Ian Muttoo",
+      "CC BY-SA 2.0"
+    ]
+  },
+  {
+    "name": "hammonds.jpg",
+    "category": "external-photo-unlabeled",
+    "seconds": 15.378,
+    "candidates": [],
+    "source": [
+      "https://commons.wikimedia.org/wiki/File:Golden_Spiral_by_Brad_Hammonds.jpg",
+      "Brad Hammonds",
+      "CC BY 2.0"
+    ]
+  },
+  {
+    "name": "shell.jpg",
+    "category": "external-photo-unlabeled",
+    "seconds": 2.818,
+    "candidates": [
+      {
+        "kind": "spiral",
+        "error": 0.694310141987878,
+        "ratio": 1.618033988749895,
+        "growth": 1.5906869585784957,
+        "support": 80.41666666666667,
+        "metric": "radial"
+      },
+      {
+        "kind": "spiral",
+        "error": 0.5805698405969241,
+        "ratio": 1.618033988749895,
+        "growth": 1.6239361707498754,
+        "support": 94.16666666666667,
+        "metric": "radial"
+      }
+    ],
+    "source": [
+      "https://commons.wikimedia.org/wiki/File:Golden_spiral_on_a_shell.jpg",
+      "Suyothami",
+      "CC BY-SA 4.0"
+    ]
+  },
+  {
+    "name": "light-art.jpg",
+    "category": "external-photo-unlabeled",
+    "seconds": 0.778,
+    "candidates": [],
+    "source": [
+      "https://commons.wikimedia.org/wiki/File:Goldene_Spirale_Rotgelb.jpg",
+      "Marinelli; artwork Martina Schettina",
+      "CC BY-SA 3.0"
+    ]
+  }
+]

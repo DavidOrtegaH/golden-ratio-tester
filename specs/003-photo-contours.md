@@ -19,3 +19,31 @@ privacy, locale, export and CSRF behavior.
 
 The original synthetic tests remain regression tests. A small development sample
 is not a statistically representative accuracy benchmark.
+
+## Final thresholds and budgets
+
+- Contour proposals: at least π angular span, radius ratio ≥2.3, free-growth b
+  within 8% of golden b, free radial RMS ≤1.2%, golden radial RMS ≤1.8%.
+- Fragmented-edge template proposals: one full turn; independently refine growth
+  and reject b outside 8%; golden edge-distance RMS ≤1.2% of arc diagonal.
+- Both photographic routes: ≥72% nearby edge points with normal agreement,
+  ≥40% evidence in every eighth of the arc. Tolerance max(2px, 0.8% diagonal).
+- Template coarse search: 9×9 centers, 7 radii, 24 angles, both handednesses;
+  refine best 48 proposals. Contour budget: 160 fits at each of two blur scales.
+- Merge overlapping arcs and compatible center/phase models. Counts represent
+  candidate segments, potentially several per physical structure.
+- A 270° template experiment produced a suspicious candidate on the astronaut
+  control and was discarded; the final template method requires a full 360°.
+
+No downloaded third-party photo is tracked in Git. External source links and
+licenses are retained in the evaluation script/report. Source specification
+SPEC-001 remains historical where superseded by this specification.
+
+## Verification evidence
+
+19 automated tests passed. The local real-HTTP flow passed with the unmodified
+2395×1588 shell photograph: two segments, growth/support display, hidden guides,
+original-resolution PNG download, English translation and null-origin CSRF.
+Baseline comparison and source provenance are recorded in docs/detector-evaluation.md.
+The photograph itself and its annotated derivative are kept outside Git with
+CC BY-SA 4.0 attribution; the code remains MIT.

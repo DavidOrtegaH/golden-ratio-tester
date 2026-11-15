@@ -26,6 +26,56 @@ def spiral_image(growth=GROWTH, mirrored=False):
 
 
 class GeometryTests(SimpleTestCase):
+    def test_r3_textured_crossing_spiral(self):
+        rng = np.random.default_rng(23)
+        image = Image.fromarray(rng.normal(180, 15, (600, 600, 3)).clip(0, 255).astype('uint8'))
+        t = np.linspace(0, 3 * math.pi, 1200)
+        r = 12 * np.exp(GROWTH * t)
+        points = np.column_stack((300 + r * np.cos(t), 300 + r * np.sin(t)))
+        draw = ImageDraw.Draw(image)
+        draw.line([tuple(p) for p in points], fill=(35, 40, 30), width=5)
+        draw.line((50, 350, 550, 350), fill=(100, 100, 100), width=2)
+        found = [c for c in analyze(image) if c.kind == 'spiral']
+        self.assertEqual(len(found), 1)
+        self.assertLess(abs(found[0].growth - PHI), .08)
+        self.assertGreaterEqual(found[0].support, 72)
+
+    def test_r3_full_pipeline_negative_patterns(self):
+        for kind in ('circle', 'archimedean', 'nongolden', 'grid'):
+            with self.subTest(kind=kind):
+                image = Image.new('RGB', (600, 600), 'white')
+                draw = ImageDraw.Draw(image)
+                if kind == 'circle':
+                    draw.ellipse((90, 90, 510, 510), outline='black', width=5)
+                elif kind == 'grid':
+                    for value in range(40, 600, 40):
+                        draw.line((value, 0, value, 600), fill='black', width=3)
+                        draw.line((0, value, 600, value), fill='black', width=3)
+                else:
+                    t = np.linspace(0, 4 * math.pi, 1200)
+                    r = 12 * np.exp(.18 * t) if kind == 'nongolden' else 12 + 15 * t
+                    points = np.column_stack((300 + r * np.cos(t), 300 + r * np.sin(t)))
+                    draw.line([tuple(p) for p in points], fill='black', width=5)
+                self.assertEqual([c for c in analyze(image) if c.kind == 'spiral'], [])
+
+    def test_r3_photographic_controls(self):
+        from skimage import data
+        for name in ('camera', 'coffee', 'astronaut', 'chelsea'):
+            with self.subTest(name=name):
+                image = Image.fromarray(getattr(data, name)()).convert('RGB')
+                self.assertEqual([c for c in analyze(image) if c.kind == 'spiral'], [])
+
+    def test_r3_photo_background_composite(self):
+        from skimage import data
+        image = Image.fromarray(data.coffee()).resize((700, 700))
+        t = np.linspace(0, 3 * math.pi, 1400)
+        r = 12 * np.exp(GROWTH * t)
+        points = np.column_stack((350 + r * np.cos(t), 350 + r * np.sin(t)))
+        ImageDraw.Draw(image).line([tuple(p) for p in points], fill='white', width=6)
+        found = [c for c in analyze(image) if c.kind == 'spiral']
+        self.assertEqual(len(found), 1)
+        self.assertGreaterEqual(found[0].support, 72)
+
     def test_r2_golden_frame_and_negative_square(self):
         self.assertEqual(len(analyze(Image.new('RGB', (809, 500), 'white'))), 1)
         self.assertEqual(analyze(Image.new('RGB', (500, 500), 'white')), [])

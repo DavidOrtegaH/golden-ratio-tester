@@ -67,7 +67,10 @@ def result(request, token):
         return render(request, 'lab/index.html', ctx, status=404)
     visible = request.GET.get('guides') != '0'
     rows = [{'number': i, 'label': ctx['t'][c.kind], 'error': f'{c.error:.2f}%',
-             'ratio': '—' if c.kind == 'spiral' else f'{c.ratio:.4f}'}
+             'ratio': '—' if c.kind == 'spiral' else f'{c.ratio:.4f}',
+             'growth': f'{c.growth:.4f}' if c.growth is not None else '—',
+             'support': f'{c.support:.0f}%' if c.support is not None else '—',
+             'metric': ctx['t'][c.metric if c.kind == 'spiral' else 'aspect_error']}
             for i, c in enumerate(value['candidates'], 1)]
     ctx.update(rows=rows, count=len(rows), visible=visible, size=value['size'])
     return render(request, 'lab/result.html', ctx)

@@ -31,17 +31,30 @@ Un rectángulo admite hasta un 3% de desviación respecto a φ y debe tener áng
 aproximadamente rectos. No se inventan recortes arbitrarios. Las dos caras del
 borde de un mismo rectángulo se deduplican por solapamiento.
 
-Las espirales se buscan en trazos aislados segmentados por umbral de Otsu, se
-reducen a un esqueleto y se ajustan a `r = a·exp(b·θ)`, con
-`|b| = 2·ln(φ)/π`. Se exige un recorrido de al menos π radianes, radio máximo/mínimo
-de al menos 2 y error RMS radial ≤2,5% de la diagonal del trazo. El error de espiral
-y el error de relación rectangular son métricas diferentes, no probabilidades.
+Las espirales se buscan por tres rutas: trazos aislados, tramos de contornos Canny
+a dos escalas y una búsqueda de plantillas sobre bordes fragmentados. Se ajusta el
+crecimiento libre de `r = a·exp(b·θ)` antes de aceptar su proximidad al crecimiento
+áureo `|b| = 2·ln(φ)/π` (desviación máxima de b: 8%). No basta con dibujar una guía.
 
-El análisis usa una imagen de hasta 1200 píxeles en su lado mayor. Considera como
-máximo 300 contornos rectangulares y 24 componentes para espirales; puede omitir
-elementos pequeños o escenas muy densas. Texturas, perspectiva, cruces, guías
-superpuestas y oclusiones pueden impedir la detección. No se afirma que un
-rectángulo implique una espiral, ni que cero candidatos demuestre ausencia.
+Los contornos requieren al menos media vuelta, crecimiento de radio ≥2,3,
+error RMS radial libre ≤1,2% y error del ajuste áureo ≤1,8% de su diagonal.
+En contornos y bordes se exige que ≥72% de los puntos del arco estén próximos a
+bordes con orientación compatible, con al menos 40% de apoyo en cada octavo.
+La búsqueda por plantillas exige una vuelta completa y distancia RMS a bordes
+≤1,2%. Se muestran por separado el error de lados, el RMS radial y el RMS a bordes;
+no son probabilidades. El crecimiento mostrado es el factor de radio por cada 90°,
+cuyo objetivo es φ. Distintos tramos pueden pertenecer a una misma estructura.
+
+El análisis general usa hasta 1200 píxeles en su lado mayor; contornos fotográficos
+usan hasta 800 y plantillas hasta 640. Hay límites de 300 contornos rectangulares,
+24 componentes de trazo, 50 contornos por escala, 160 optimizaciones por escala y
+48 refinamientos de plantillas. La búsqueda cubre ambos sentidos, varios centros,
+escalas y orientaciones; es acotada y puede omitir coincidencias. Los tiempos
+medidos y los casos fallidos están en [el informe de evaluación](docs/detector-evaluation.md).
+
+Las texturas, la perspectiva y las oclusiones siguen pudiendo impedir detecciones.
+No hay reconocimiento semántico de objetos ni demostración de intención artística.
+Un rectángulo no implica una espiral y cero candidatos no demuestra ausencia.
 Las aproximaciones de Fibonacci con arcos de circunferencia tampoco son exactamente
 la espiral logarítmica áurea.
 
@@ -77,9 +90,12 @@ La especificación se escribió y confirmó antes de la implementación:
 npm.cmd run build
 ```
 
-Las 15 pruebas cubren positivos y negativos sintéticos, ambos sentidos de giro,
+Las 19 pruebas cubren positivos y negativos sintéticos, ambos sentidos de giro,
 deduplicación, subida inválida, idiomas, CSRF, descarga, eliminación y caducidad.
+Incluyen controles fotográficos y un montaje con curva conocida sobre fotografía.
 No equivalen a una evaluación estadística del detector sobre fotografías reales.
+La evaluación reproducible se ejecuta con `python scripts/evaluate_detector.py`
+y admite fotografías locales opcionales mediante `--photos <carpeta>`.
 También se verificó el flujo HTTP real contra el servidor local: selección de
 idioma, CSRF con origen válido, subida, análisis, ocultación de guías, descarga
 PNG y eliminación. Todos estos pasos pasaron.

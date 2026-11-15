@@ -17,6 +17,10 @@ class Candidate:
     points: list
     error: float
     ratio: float = PHI
+    growth: float | None = None
+    support: float | None = None
+    metric: str = 'radial'
+    model: tuple | None = None
 
 
 def rectangle(points, kind='rectangle'):
@@ -153,19 +157,28 @@ def spirals(rgb):
             current = parents[current]
         if len(path) < len(pixels) * 0.90:
             continue
-        candidate = fit_spiral(path)
+        from .contours import fit_contour
+        candidate = fit_contour(path)
         if candidate:
             found.append(candidate)
     return found
 
 
 def analyze(image):
+    from .contours import photographic_spirals
+    from .templatesearch import edge_spirals
     width, height = image.size
     scale = min(1, 1200 / max(width, height))
     small = image.resize((round(width * scale), round(height * scale)))
     rgb = np.array(small)
-    candidates = rectangles(rgb) + spirals(rgb)
+    strokes = spirals(rgb)
+    curves = strokes + photographic_spirals(rgb, strokes)
+    curves += edge_spirals(rgb, curves)
+    candidates = rectangles(rgb) + curves
     sx, sy = width / small.width, height / small.height
     for candidate in candidates:
         candidate.points = [[x * sx, y * sy] for x, y in candidate.points]
+        if candidate.model:
+            x, y, b, a = candidate.model
+            candidate.model = (x * sx, y * sy, b, a + math.log(math.sqrt(sx * sy)))
     return candidates
