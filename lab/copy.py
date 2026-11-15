@@ -1,5 +1,6 @@
 COPY = {
     'es': {
+        'image_area': 'Sube o pega una imagen',
         'paste_button': 'Pegar imagen', 'paste_hint': 'También puedes copiar una imagen y pegarla aquí con Ctrl+V o ⌘V. La imagen se enviará cuando pulses Analizar.',
         'paste_ready': 'Imagen preparada. Pulsa Analizar imagen para continuar.', 'paste_empty': 'No hay una imagen copiada. Usa «Copiar imagen» o copia una captura; un enlace no es una imagen.',
         'paste_denied': 'No se pudo leer el portapapeles. Prueba Ctrl+V o ⌘V en la página, o selecciona un archivo.',
@@ -41,6 +42,7 @@ COPY = {
         'skip': 'Saltar al contenido', 'back': 'Volver al laboratorio', 'selected': 'Idioma',
     },
     'en': {
+        'image_area': 'Upload or paste an image',
         'paste_button': 'Paste image', 'paste_hint': 'You can also copy an image and paste it here with Ctrl+V or ⌘V. It is sent only when you press Analyze.',
         'paste_ready': 'Image ready. Press Analyze image to continue.', 'paste_empty': 'No copied image found. Use Copy image or copy a screenshot; a link is not an image.',
         'paste_denied': 'Could not read the clipboard. Try Ctrl+V or ⌘V on the page, or choose a file.',

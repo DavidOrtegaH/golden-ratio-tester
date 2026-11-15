@@ -11,11 +11,10 @@
  data-image-input-ready-value="{{ t.paste_ready }}" data-image-input-empty-value="{{ t.paste_empty }}"
  data-image-input-denied-value="{{ t.paste_denied }}" data-image-input-unsupported-value="{{ t.paste_unsupported }}"
  data-image-input-size-value="{{ t.size }}" data-image-input-format-value="{{ t.format }}">{% csrf_token %}
-<div class="upload-zone p-3 mb-3"><label for="image" class="form-label fw-semibold">{{ t.file }}</label>
+<div class="upload-zone p-3 mb-3"><label for="image" class="form-label fw-semibold">{{ t.image_area }}</label>
 <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required class="form-control" aria-describedby="formats" data-image-input-target="input" data-action="change->image-input#changed">
-<p class="small text-secondary mt-2 mb-0" id="formats">{{ t.formats }}</p></div>
-<div hidden data-image-input-target="tools" class="mb-3">
-<div tabindex="0" class="upload-zone p-3" aria-label="{{ t.paste_hint }}">
+<p class="small text-secondary mt-2 mb-0" id="formats">{{ t.formats }}</p>
+<div hidden data-image-input-target="tools" class="mt-3">
 <button type="button" class="btn btn-outline-primary" data-image-input-target="button" data-action="image-input#read">{{ t.paste_button }}</button>
 <p class="small text-secondary mt-2 mb-0">{{ t.paste_hint }}</p></div>
 <p class="small mt-2 mb-0" role="status" aria-live="polite" data-image-input-target="status"></p>
