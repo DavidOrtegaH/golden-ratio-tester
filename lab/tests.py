@@ -4,7 +4,7 @@ import time
 from unittest.mock import patch
 import numpy as np
 from PIL import Image, ImageDraw
-from django.test import SimpleTestCase, Client
+from django.test import SimpleTestCase, Client, override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from .copy import COPY
 from .geometry import PHI, GROWTH, analyze, fit_spiral
@@ -83,6 +83,41 @@ class UploadTests(SimpleTestCase):
 
 
 class FlowTests(SimpleTestCase):
+    @override_settings(DEBUG=True, ALLOWED_HOSTS=['localhost', 'testserver', 'example.com'])
+    def test_preview_null_origin_requires_tokens_and_loopback(self):
+        client = Client(enforce_csrf_checks=True, HTTP_HOST='localhost')
+        self.assertContains(client.get('/'), 'Golden Ratio Tester')
+        token = client.cookies['csrftoken'].value
+        headers = {'HTTP_ORIGIN': 'null', 'REMOTE_ADDR': '127.0.0.1'}
+        self.assertEqual(client.post('/language/', {'language': 'en'}, **headers).status_code, 403)
+        self.assertEqual(client.post('/language/', {'language': 'en', 'csrfmiddlewaretoken': 'a' * 64}, **headers).status_code, 403)
+        data = {'language': 'en', 'csrfmiddlewaretoken': token}
+        self.assertEqual(client.post('/language/', data, **headers).status_code, 302)
+        for remote, host in [('192.0.2.1', 'localhost'), ('127.0.0.1', 'example.com')]:
+            self.assertEqual(client.post('/language/', data, HTTP_ORIGIN='null', REMOTE_ADDR=remote,
+                                         HTTP_HOST=host).status_code, 403)
+        self.assertEqual(client.post('/language/', data, secure=True, **headers).status_code, 403)
+        with self.settings(DEBUG=False):
+            self.assertEqual(client.post('/language/', data, **headers).status_code, 403)
+        result = client.post('/', {'image': upload(Image.new('RGB', (809, 500), 'white')),
+                                   'csrfmiddlewaretoken': token}, **headers)
+        self.assertEqual(result.status_code, 302)
+        result_token = result.url.split('/')[2]
+        download = client.get(f'/image/{result_token}/download/')
+        self.assertIn('golden-ratio-tester.png', download['Content-Disposition'])
+        self.assertEqual(client.post(f'/delete/{result_token}/', {'csrfmiddlewaretoken': token}, **headers).status_code, 302)
+
+    def test_https_without_origin_uses_same_origin_referer(self):
+        client = Client(enforce_csrf_checks=True)
+        response = client.get('/', secure=True)
+        self.assertEqual(response['Referrer-Policy'], 'same-origin')
+        token = client.cookies['csrftoken'].value
+        data = {'language': 'en', 'csrfmiddlewaretoken': token}
+        self.assertEqual(client.post('/language/', data, secure=True,
+                                    HTTP_REFERER='https://testserver/').status_code, 302)
+        self.assertEqual(client.post('/language/', data, secure=True,
+                                    HTTP_REFERER='https://untrusted.example/').status_code, 403)
+
     def test_r4_r5_r6_complete_flow(self):
         response = self.client.get('/')
         self.assertContains(response, 'lang="es"')

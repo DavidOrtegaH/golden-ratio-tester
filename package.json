@@ -1,5 +1,5 @@
 {
-  "name": "aurea-lab",
+  "name": "golden-ratio-tester",
   "private": true,
   "version": "0.1.0",
   "scripts": {"build": "sass --silence-deprecation=import,global-builtin,color-functions styles/app.scss lab/static/lab/app.css --style=compressed --no-source-map"},

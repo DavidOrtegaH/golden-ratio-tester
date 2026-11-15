@@ -1,4 +1,4 @@
-# Áurea Lab
+# Golden Ratio Tester
 
 **Geometría, no casualidad.** Una aplicación web en español e inglés para buscar
 geometrías compatibles con la proporción áurea en imágenes, revisar sus medidas
@@ -77,7 +77,7 @@ La especificación se escribió y confirmó antes de la implementación:
 npm.cmd run build
 ```
 
-Las 13 pruebas cubren positivos y negativos sintéticos, ambos sentidos de giro,
+Las 15 pruebas cubren positivos y negativos sintéticos, ambos sentidos de giro,
 deduplicación, subida inválida, idiomas, CSRF, descarga, eliminación y caducidad.
 No equivalen a una evaluación estadística del detector sobre fotografías reales.
 También se verificó el flujo HTTP real contra el servidor local: selección de
@@ -94,9 +94,12 @@ Diseñado para versiones actuales de Chrome, Edge, Firefox y Safari, incluyendo
 navegadores móviles. No depende de JavaScript ni de APIs experimentales.
 Se han comprobado anchuras de 390 y 768 píxeles en el navegador integrado sin
 desbordamiento horizontal. **La matriz de navegadores externos y dispositivos
-físicos todavía no está verificada.** El navegador integrado usado para QA envió
-`Origin: null` al enviar formularios y Django lo rechazó correctamente; usa un
-navegador normal. No se ha relajado CSRF para acomodar esa limitación.
+físicos todavía no está verificada.** Los formularios del navegador integrado
+con `Origin: null` se admiten únicamente en desarrollo HTTP local: DEBUG activo,
+host local y conexión desde loopback. La cookie y el token CSRF siguen siendo
+obligatorios. En producción y para otros clientes se conservan las verificaciones
+estrictas de Django. Se usa `Referrer-Policy: same-origin` para permitir formularios
+HTTPS sin Origin y evitar filtrar URLs de resultados a sitios externos.
 
 ## Privacidad y cookies
 
@@ -105,7 +108,7 @@ y se mantienen solo en memoria. No se envían a proveedores de IA ni se usan par
 entrenamiento. El almacén admite hasta 32 resultados y 192 MiB de PNGs normalizados y anotados;
 los resultados antiguos pueden expulsarse antes de 15 minutos. Se usa un token
 aleatorio de acceso: quien tenga la URL puede ver ese resultado mientras exista.
-Las respuestas incluyen `no-store`, `no-referrer`, CSP y exclusión de indexación.
+Las respuestas incluyen `no-store`, `same-origin`, CSP y exclusión de indexación.
 
 | Cookie propia | Finalidad | Duración |
 | --- | --- | --- |
@@ -149,7 +152,7 @@ con expiración y una cola de análisis, conservando las garantías de privacida
 
 ## English
 
-Áurea Lab is a bilingual, open-source image geometry analyzer. It reports **candidate**
+Golden Ratio Tester is a bilingual, open-source image geometry analyzer. It reports **candidate**
 golden rectangles and isolated logarithmic spiral strokes, with measurements and
 downloadable overlays. It does not prove artistic intent or find every relationship
 in arbitrary photographs. Run the Django application using the commands above;

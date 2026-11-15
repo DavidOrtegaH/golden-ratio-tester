@@ -1,12 +1,12 @@
 {% load static %}<!doctype html>
 <html lang="{{ lang }}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ t.intro }}"><title>Áurea Lab — {{ t.tagline }}</title>
+<meta name="description" content="{{ t.intro }}"><title>Golden Ratio Tester — {{ t.tagline }}</title>
 <link rel="icon" type="image/svg+xml" href="{% static 'lab/favicon.svg' %}">
 <link rel="stylesheet" href="{% static 'lab/app.css' %}"></head>
 <body><a class="skip" href="#main">{{ t.skip }}</a>
 <header class="container py-4 border-bottom"><div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
-<a class="brand" href="{% url 'home' %}"><span class="brand-mark">φ</span>áurea<span class="fw-normal">lab</span></a>
+<a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">φ</span><span>Golden Ratio <span class="fw-normal">Tester</span></span></a>
 <div class="d-flex align-items-center gap-4 flex-wrap">
 <a class="text-decoration-none small d-none d-md-inline" href="{% url 'home' %}#method">{{ t.nav }}</a>
 <form action="{% url 'language' %}" method="post" class="d-flex gap-1" aria-label="{{ t.selected }}">{% csrf_token %}<input type="hidden" name="token" value="{{ token }}">

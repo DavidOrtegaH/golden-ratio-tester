@@ -10,8 +10,8 @@ $link-color: #155842;
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 body { -webkit-font-smoothing: antialiased; }
-.brand { font-family: Georgia, serif; font-size: 1.7rem; text-decoration: none; letter-spacing: -.06em; font-weight: bold; }
-.brand-mark { background: $primary; color: #e7d9a2; border-radius: 50%; display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; margin-right: .5rem; }
+.brand { display: inline-flex; align-items: center; font-family: Georgia, serif; font-size: clamp(1.2rem, 3.8vw, 1.7rem); text-decoration: none; letter-spacing: -.04em; font-weight: bold; }
+.brand-mark { background: $primary; color: #e7d9a2; border-radius: 50%; display: inline-grid; place-items: center; flex-shrink: 0; width: 2.4rem; height: 2.4rem; margin-right: .5rem; }
 .micro { font-size: .68rem; letter-spacing: .15em; font-weight: 700; }
 .hero-title { font-family: Georgia, serif; font-size: clamp(3rem, 6.1vw, 5.7rem); letter-spacing: -.055em; line-height: 1.06; }
 .hero-title em { color: $primary; font-weight: normal; }

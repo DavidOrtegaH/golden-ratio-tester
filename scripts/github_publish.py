@@ -26,7 +26,7 @@ def api(path, data=None):
     req = urllib.request.Request('https://api.github.com' + path,
         data=json.dumps(data).encode() if data is not None else None,
         headers={'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json',
-                 'User-Agent': 'aurea-lab-repository-setup'})
+                 'User-Agent': 'golden-ratio-tester-repository-setup'})
     with urllib.request.urlopen(req) as response:
         return json.load(response)
 
@@ -44,7 +44,7 @@ try:
         if error.code != 404:
             raise
     repo = api('/user/repos', {'name': name, 'private': False,
-        'description': 'Áurea Lab: geometric golden-ratio image analysis. Django, OpenCV, Bootstrap + Sass. ES/EN. SpecDD.',
+        'description': 'Golden Ratio Tester: geometric golden-ratio image analysis. Django, OpenCV, Bootstrap + Sass. ES/EN. SpecDD.',
         'auto_init': False})
     subprocess.run(git + ['remote', 'add', 'origin', repo['clone_url']], check=True)
     subprocess.run(git + ['push', '-u', 'origin', 'main', 'develop', 'feature', 'release'], check=True, env=environment)

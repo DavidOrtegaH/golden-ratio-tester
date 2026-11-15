@@ -14,7 +14,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'lab.middleware.PrivacyHeaders',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'lab.csrf.LocalPreviewCsrfMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 ROOT_URLCONF = 'aurea.urls'
@@ -37,5 +37,5 @@ CSRF_COOKIE_AGE = None
 SECURE_SSL_REDIRECT = not DEBUG
 SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0
 SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_REFERRER_POLICY = 'no-referrer'
+SECURE_REFERRER_POLICY = 'same-origin'
 X_FRAME_OPTIONS = 'DENY'

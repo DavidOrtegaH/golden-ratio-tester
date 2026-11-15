@@ -80,7 +80,7 @@ def image(request, token, variant):
         return HttpResponseNotFound(context(request)['t']['expired'])
     response = HttpResponse(value['original' if variant == 'original' else 'overlay'], content_type='image/png')
     if variant == 'download':
-        response['Content-Disposition'] = 'attachment; filename="aurea-analysis.png"'
+        response['Content-Disposition'] = 'attachment; filename="golden-ratio-tester.png"'
     return response
 
 

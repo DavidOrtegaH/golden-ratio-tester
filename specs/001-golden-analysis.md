@@ -1,4 +1,4 @@
-# SPEC-001 — Áurea Lab
+# SPEC-001 — Golden Ratio Tester
 
 Status: implementation specification, 2026-11-15.
 
