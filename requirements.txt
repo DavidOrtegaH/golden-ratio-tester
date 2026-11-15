@@ -1,0 +1,7 @@
+Django>=5.2,<5.3
+opencv-python-headless>=4.10,<5
+numpy>=2.1,<3
+Pillow>=11,<13
+scipy>=1.14,<2
+scikit-image>=0.25,<0.27
+waitress>=3,<4

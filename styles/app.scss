@@ -1,0 +1,44 @@
+$primary: #155842;
+$secondary: #626a62;
+$body-bg: #f8f7f2;
+$body-color: #20382d;
+$font-family-sans-serif: 'Segoe UI', system-ui, sans-serif;
+$border-radius: .85rem;
+$btn-border-radius: .5rem;
+$input-border-radius: .5rem;
+$link-color: #155842;
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+body { -webkit-font-smoothing: antialiased; }
+.brand { font-family: Georgia, serif; font-size: 1.7rem; text-decoration: none; letter-spacing: -.06em; font-weight: bold; }
+.brand-mark { background: $primary; color: #e7d9a2; border-radius: 50%; display: inline-grid; place-items: center; width: 2.4rem; height: 2.4rem; margin-right: .5rem; }
+.micro { font-size: .68rem; letter-spacing: .15em; font-weight: 700; }
+.hero-title { font-family: Georgia, serif; font-size: clamp(3rem, 6.1vw, 5.7rem); letter-spacing: -.055em; line-height: 1.06; }
+.hero-title em { color: $primary; font-weight: normal; }
+.hero { padding-block: 4rem 3rem; }
+.intro { max-width: 33rem; font-size: 1.07rem; line-height: 1.8; color: #5a675e; }
+.upload-panel { background: #fff; border: 1px solid #d6ddd2; box-shadow: 0 12px 40px #1b382d06; }
+.upload-zone { border: 1px dashed #a3b6a5; background: #f9fbf7; border-radius: .7rem; }
+.study { background: #e8eddf; border-radius: 1rem; padding: 1.7rem; overflow: hidden; position: relative; }
+.study img { width: 100%; height: auto; }
+.study .formula { font-family: Georgia, serif; font-size: 2.5rem; letter-spacing: -.05em; }
+.section-title { font-family: Georgia, serif; font-size: clamp(2rem, 3.5vw, 2.8rem); letter-spacing: -.04em; }
+.step-number { font-family: Georgia, serif; color: #6c8065; font-size: 2rem; }
+.method { border-block: 1px solid #dce1d7; }
+.result-image { max-height: 75vh; object-fit: contain; background: #edf0e9; }
+.result-count { font-family: Georgia, serif; font-size: 4rem; line-height: 1; }
+.language-flag { width: 1.3rem; height: .85rem; object-fit: cover; vertical-align: -.1rem; }
+.btn { padding: .65rem 1rem; }
+.lang-button { font-size: .78rem; padding: .4rem .6rem; }
+.btn-outline-primary { background: transparent; }
+.footer-text { font-size: .77rem; }
+summary { cursor: pointer; font-weight: 600; }
+:focus-visible { outline: 3px solid #bc730e !important; outline-offset: 4px; }
+.skip { position: absolute; top: -5rem; left: 1rem; z-index: 10; background: white; padding: 1rem; &:focus { top: 1rem; } }
+@include media-breakpoint-down(md) {
+  .hero { padding-top: 2rem; }
+  .study { padding: 1rem; }
+  .intro { font-size: 1rem; }
+  .result-toolbar .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }

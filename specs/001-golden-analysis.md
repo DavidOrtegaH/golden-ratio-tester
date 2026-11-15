@@ -27,3 +27,12 @@ Python 3.12+, Django 5.2 LTS, OpenCV, SciPy, scikit-image, Pillow; Bootstrap 5 +
 ## Verification
 
 Synthetic positive/negative rectangles and spirals; duplicate suppression; corrupt/oversized upload; locale, cookies, export, expiry, deletion and token isolation; Django system checks; Sass compilation; browser smoke check where available. These establish synthetic behavior only, not accuracy on a representative photo dataset.
+
+## Implementation evidence — 2026-11-15
+
+- 13 automated tests pass; Django system checks pass; Sass compiles successfully.
+- Synthetic clockwise/counterclockwise spirals pass the complete raster pipeline.
+- Native open stroke paths tolerate tiny raster staircase cycles; require 90% component coverage to reject substantial branching.
+- User reference diagrams were inspected locally without copying into the repository: first diagram produced two rectangular candidates; second produced one. Overlapping guides prevent isolated-stroke spiral detection, an explicit current limitation.
+- Responsive DOM width checks at 390 and 768 pixels showed no horizontal document overflow. Full external browser/device testing remains pending: embedded browser posts had a null origin (correctly rejected by CSRF); native browser automation was unavailable.
+- Public repository and MIT license requested by the user; retain original author David (DavidOrtegaH). No third-party reference images are redistributed.

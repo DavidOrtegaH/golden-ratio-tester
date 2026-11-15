@@ -1,0 +1,24 @@
+{% extends 'lab/base.html' %}{% load static %}{% block content %}
+<section class="hero"><div class="row g-5 align-items-center"><div class="col-lg-7">
+<p class="micro mb-4">● &nbsp; {{ t.eyebrow }}</p>
+<h1 class="hero-title mb-4">{{ t.title }}<br><em>{{ t.title_accent }}</em></h1>
+<p class="intro mb-4">{{ t.intro }}</p>
+<div class="upload-panel rounded-4 p-4">
+<h2 class="h5 mb-1">{{ t.upload_title }}</h2><p class="small text-secondary mb-3">{{ t.upload_sub }}</p>
+{% if error %}<div class="alert alert-warning" role="alert">{{ error }}</div>{% endif %}
+<form action="{% url 'home' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+<div class="upload-zone p-3 mb-3"><label for="image" class="form-label fw-semibold">{{ t.file }}</label>
+<input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" required class="form-control" aria-describedby="formats">
+<p class="small text-secondary mt-2 mb-0" id="formats">{{ t.formats }}</p></div>
+<button class="btn btn-primary w-100 fw-semibold" type="submit">{{ t.analyze }}</button>
+<p class="text-center small text-secondary mt-3 mb-0">{{ t.temporary }}</p>
+</form></div></div>
+<div class="col-lg-5"><figure class="study mb-0"><figcaption class="micro">{{ t.sample }}</figcaption>
+<img src="{% static 'lab/study.svg' %}" alt="" width="480" height="440">
+<div class="d-flex justify-content-between align-items-end gap-2"><span class="formula">φ ≈ 1.618</span><span class="micro">(1 + √5) / 2</span></div>
+<p class="small mt-3 mb-0 text-secondary">{{ t.sample_note }}</p></figure></div>
+</div></section>
+<section id="method" class="method py-5 mt-3"><div class="row g-4 mb-4"><div class="col-lg-6"><h2 class="section-title">{{ t.method_title }}</h2></div><div class="col-lg-6"><p class="text-secondary">{{ t.method_intro }}</p></div></div>
+<div class="row g-4"><div class="col-md-4"><span class="step-number">01.</span><h3 class="h5 mt-2">{{ t.step1 }}</h3><p class="text-secondary small mb-0">{{ t.step1_body }}</p></div><div class="col-md-4"><span class="step-number">02.</span><h3 class="h5 mt-2">{{ t.step2 }}</h3><p class="text-secondary small mb-0">{{ t.step2_body }}</p></div><div class="col-md-4"><span class="step-number">03.</span><h3 class="h5 mt-2">{{ t.step3 }}</h3><p class="text-secondary small mb-0">{{ t.step3_body }}</p></div></div></section>
+<section class="pt-5"><h2 class="h5">{{ t.limits_title }}</h2><p class="text-secondary small">{{ t.limits }}</p><a href="{{ t.wiki_url }}" target="_blank" rel="noopener noreferrer" class="fw-semibold small">{{ t.wiki }}</a></section>
+{% endblock %}
