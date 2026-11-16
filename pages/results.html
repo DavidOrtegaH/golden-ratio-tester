@@ -1,0 +1,9 @@
+<template id="pages-results">
+<section class="pb-5">
+<div class="row align-items-center g-4 mb-3"><div class="col-md-8"><h2 class="section-title" tabindex="-1" data-i18n="result_title"></h2><p class="text-secondary mb-0" data-i18n="result_intro"></p></div><div class="col-md-4 d-flex align-items-center gap-3"><strong class="result-count"></strong><span data-i18n="count"></span></div></div>
+<div class="d-flex flex-wrap gap-2 mb-3 result-toolbar"><button class="btn btn-outline-primary" aria-controls="result-image" data-guide-toggle data-action="workspace#toggle"></button><a class="btn btn-primary" download="golden-ratio-tester.png" data-i18n="download"></a><button class="btn btn-outline-primary" data-action="workspace#newImage" data-i18n="another"></button></div>
+<figure><img id="result-image" class="result-image w-100 rounded-3 border" data-result-image alt=""><figcaption class="small text-secondary mt-2" data-i18n="legend"></figcaption></figure>
+<div data-measurements><h3 class="h5 mt-4" data-i18n="measurements"></h3><div class="table-responsive" tabindex="0" role="region"><table class="table"><thead><tr><th scope="col">#</th><th scope="col" data-i18n="count"></th><th scope="col" data-i18n="ratio"></th><th scope="col" data-i18n="error"></th><th scope="col" data-i18n="growth"></th><th scope="col" data-i18n="support"></th></tr></thead><tbody></tbody></table></div></div>
+<p class="alert alert-light border" data-empty data-i18n="empty"></p><p class="small text-secondary" data-i18n="metric_help"></p>
+<div class="border-top mt-4 pt-4"><p class="small text-secondary" data-i18n="expiry"></p><button class="btn btn-outline-danger" data-action="workspace#remove" data-i18n="delete"></button></div>
+</section></template>

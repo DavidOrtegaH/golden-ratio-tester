@@ -165,17 +165,27 @@ def spirals(rgb):
 
 
 def analyze(image):
-    from .contours import photographic_spirals
-    from .templatesearch import edge_spirals
     width, height = image.size
     scale = min(1, 1200 / max(width, height))
     small = image.resize((round(width * scale), round(height * scale)))
-    rgb = np.array(small)
+    return analyze_rgb(np.array(small), (width, height))
+
+
+def analyze_rgb(rgb, original_size=None):
+    """Shared detector for normalized RGB pixels, including the browser worker.
+
+    Callers bound the analysis image to 1200px and validate original dimensions.
+    No image codec or web framework is needed by this entry point.
+    """
+    from .contours import photographic_spirals
+    from .templatesearch import edge_spirals
+    height_small, width_small = rgb.shape[:2]
+    width, height = original_size or (width_small, height_small)
     strokes = spirals(rgb)
     curves = strokes + photographic_spirals(rgb, strokes)
     curves += edge_spirals(rgb, curves)
     candidates = rectangles(rgb) + curves
-    sx, sy = width / small.width, height / small.height
+    sx, sy = width / width_small, height / height_small
     for candidate in candidates:
         candidate.points = [[x * sx, y * sy] for x, y in candidate.points]
         if candidate.model:

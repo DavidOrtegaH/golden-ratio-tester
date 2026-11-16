@@ -16,6 +16,8 @@
     "frontend/**/*.ts",
     "tests/**/*.ts",
     "e2e/**/*.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "e2e-pages/**/*.ts",
+    "playwright.pages.config.ts"
   ]
 }

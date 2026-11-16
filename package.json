@@ -8,7 +8,9 @@
     "build:scripts": "esbuild frontend/app.ts --bundle --minify --target=es2020 --outfile=lab/static/lab/app.js",
     "typecheck": "tsc",
     "test": "esbuild tests/clipboard.test.ts tests/workspace.test.ts --bundle --platform=node --packages=external --format=esm --outdir=artifacts/tests --out-extension:.js=.mjs && node --test artifacts/tests/clipboard.test.mjs artifacts/tests/workspace.test.mjs",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "build:pages": "node scripts/build_pages.mjs",
+    "test:pages": "playwright test --config playwright.pages.config.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",

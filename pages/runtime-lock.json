@@ -1,0 +1,42 @@
+{
+  "version": "314.0.8",
+  "source": "https://cdn.jsdelivr.net/pyodide/v314.0.8/full/",
+  "packages": {
+    "lazy-loader": "0.5",
+    "numpy": "2.4.6",
+    "opencv-python": "4.11.0.86",
+    "packaging": "26.1",
+    "scikit-image": "0.26.0",
+    "scipy": "1.18.0"
+  },
+  "files": {
+    "lazy_loader-0.5-py3-none-any.whl": "b5cf892eda01b97a86fdc99e0a9b91507c5b276f8371e937dd4db63ce101f0df",
+    "numpy-2.4.6-cp314-cp314-pyemscripten_2026_0_wasm32.whl": "a292c1f5d7d8a2208cd5e94fc467604c131cabcd2fc14fed6eefde121e7fabdf",
+    "opencv_python-4.11.0.86-cp314-cp314-pyemscripten_2026_0_wasm32.whl": "469a8ba6758ec4e0bce12436da977a1db3a953e320927c3f55ca6233a5d20acf",
+    "packaging-26.1-py3-none-any.whl": "565acbbea54da30348b6d68b6a54373e6f777987db9f1db6966b4b3a5060d303",
+    "scikit_image-0.26.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl": "80b1bd266de8576a46cd7d2ef5ab8fa426b23dfaab293e367e730cee0f8ac77b",
+    "scipy-1.18.0-cp314-cp314-pyemscripten_2026_0_wasm32.whl": "17ee329a957863516d1bb6a6aaa0c60576fac027e9cd3d43de27f58b5b599b50",
+    "pyodide.mjs": "1bb8cc14f9405aaa7cd4e00c12edd0a8539de9cc026618d6ee5a9663f367dc70",
+    "pyodide.asm.mjs": "22514b8be6980e28a02c8b1d6387ce8dfe666fc4edf8d547cff5dce29ff4d972",
+    "pyodide.asm.wasm": "e14d49ceca9b4a0e274ea918f3a898de2d3880b6e5573a6cfe1a2267ecc70329",
+    "python_stdlib.zip": "2bd3394a145bfbbe5bbc9d9d6ab9136abbb986c6fef6c142b3a2962227aa5c28",
+    "pyodide-lock.json": "5dc2fc119108bc148c7457dc86e7675b5c87e1cafd420b9c34c1eaef7b36c010"
+  },
+  "profile": {
+    "roots": [
+      "numpy",
+      "scipy",
+      "opencv-python",
+      "scikit-image"
+    ],
+    "dependency_overrides": {
+      "scikit-image": [
+        "numpy",
+        "scipy",
+        "packaging",
+        "lazy-loader"
+      ]
+    },
+    "reason": "Only skimage.morphology.skeletonize is used. Browser-native image decoding supplies RGB arrays; skimage I/O, wavelets, graphs and plotting are not used. Do not add those imports without restoring their dependencies and verifying the runtime profile."
+  }
+}

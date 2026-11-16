@@ -1,9 +1,10 @@
 # Golden Ratio Tester
 
+**[Abrir Golden Ratio Tester](https://davidortegah.github.io/golden-ratio-tester/)**
+
 He creado Golden Ratio Tester para comprobar las espirales áureas que se superponen
-a tantas imágenes, especialmente a raíz del Spin de *JoJo’s Bizarre Adventure:
-Steel Ball Run*. Quería poder subir o pegar una imagen, medir qué encaja y ver el
-resultado sobre la propia imagen.
+a tantas imágenes. Quería poder subir o pegar una imagen, medir qué encaja y ver
+el resultado sobre la propia imagen.
 
 La aplicación busca encuadres, rectángulos y tramos de espiral compatibles con la
 proporción áurea. Muestra cuántos candidatos encuentra, sus medidas y las guías,
@@ -22,7 +23,7 @@ He trabajado con contornos, ajustes geométricos y medidas de error, y he visto
 por qué una prueba con un dibujo limpio no demuestra que el detector funcione
 igual en una fotografía.
 
-También he trabajado con Django, procesamiento de imágenes en Python y una
+También he trabajado con Django, Python en el navegador con WebAssembly y una
 interfaz con TypeScript y Stimulus. El proyecto me ha servido para practicar
 la validación de archivos, la protección de formularios, la accesibilidad,
 los estados de espera y las pruebas de casos que deben dar negativo.
@@ -30,10 +31,11 @@ los estados de espera y las pruebas de casos que deben dar negativo.
 ### Cómo lo he resuelto
 
 He separado la selección de la imagen, el análisis y la presentación del
-resultado. El servidor comprueba el archivo y su tamaño antes de procesarlo;
+resultado. En la versión Django, el servidor comprueba el archivo antes de procesarlo;
 la interfaz conserva la imagen mientras llega la respuesta y muestra los
-resultados sin cambiar de pantalla. Los formularios normales siguen como
-alternativa cuando el navegador no puede usar el flujo dinámico.
+resultados sin cambiar de pantalla. Para publicarla en GitHub Pages he llevado
+el detector a un worker con Pyodide y he mantenido las imágenes en el dispositivo.
+En la versión Django, los formularios normales siguen como alternativa al flujo dinámico.
 
 Para ampliar el detector he combinado trazos aislados, contornos y búsqueda
 sobre bordes fragmentados. Después compruebo el crecimiento y el apoyo real de
@@ -90,6 +92,8 @@ conservan sus propias licencias y no se incluyen en el repositorio.
 
 Python 3.12+, Node 22.22.2+ o 24.15+ para desarrollo, Django 5.2 LTS, OpenCV, NumPy, SciPy, scikit-image y Pillow.
 La interfaz usa plantillas Django, Bootstrap, Sass, TypeScript y Stimulus.
+La versión pública añade Pyodide, WebAssembly y un worker para ejecutar el detector
+compartido sin backend.
 Los scripts se compilan con esbuild. No hace falta una base de datos ni una cuenta.
 
 ## Arranque local
@@ -110,6 +114,22 @@ En Linux o macOS usa `.venv/bin/python`, `npm` y `export DJANGO_DEBUG=1`.
 El CSS y el script compilados están versionados; Node se necesita para modificarlos.
 
 ## Privacidad y seguridad
+
+En **GitHub Pages**, las imágenes se procesan únicamente en tu navegador. No se
+suben a GitHub ni a un servicio de análisis. El resultado se elimina a los 15
+minutos o al pulsar Eliminar; también se libera al elegir otra imagen o cerrar
+la página. La única cookie de la aplicación recuerda el idioma después de
+elegirlo y se puede borrar desde el apartado de privacidad. GitHub recibe las
+peticiones habituales de la página y del motor y aplica su
+[política de privacidad](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+
+La primera descarga del motor puede tardar, especialmente en móvil. Los detalles
+de publicación y del perfil de dependencias están en [la documentación de Pages](docs/github-pages.md). Hace falta
+un navegador actualizado con JavaScript, WebAssembly y workers. Se puede cancelar
+el cálculo si tarda demasiado. Los archivos del motor están fijados por versión
+y se comprueban sus hashes al construir la web.
+
+Las siguientes medidas y cookies corresponden a la **versión Django**:
 
 Las imágenes se procesan en el servidor que ejecuta la aplicación y se guardan
 solo en memoria durante un máximo de 15 minutos. Se pueden borrar antes y pueden
@@ -139,6 +159,24 @@ se recupera y se sustituye cuando se vuelve a seleccionar el idioma.
 
 Antes de abrir una instancia pública hay que completar la identificación y el
 contacto de su responsable y adaptar la información de privacidad al alojamiento.
+
+## Construir la versión de GitHub Pages
+
+Después de instalar las dependencias y compilar los estilos:
+
+```powershell
+npm.cmd run build:pages
+.venv/Scripts/python.exe scripts/serve_pages.py
+```
+
+La vista local está en [localhost:8002/golden-ratio-tester/](http://127.0.0.1:8002/golden-ratio-tester/).
+La salida queda en `artifacts/pages`. No hay que publicar la carpeta del servidor
+ni configurar claves privadas para usar la web. El workflow `pages.yml` construye,
+prueba y publica esa salida al actualizar `main`.
+
+```powershell
+npm.cmd run test:pages
+```
 
 ## Comprobaciones
 
@@ -173,7 +211,13 @@ Para reproducir la evaluación del detector:
 
 ## Alojamiento
 
-El repositorio contiene una aplicación Python; GitHub Pages no ejecuta este backend.
+La aplicación pública se publica automáticamente en GitHub Pages desde `main`.
+El detector Python se ejecuta en un worker del navegador mediante Pyodide y
+WebAssembly: no necesita un servidor de análisis y las imágenes no salen del
+dispositivo. El motor se descarga desde la misma web en el primer análisis.
+
+He conservado también la versión Django para ejecutarla localmente o alojarla
+en un servidor Python. Las instrucciones siguientes corresponden a esa versión.
 En producción `DJANGO_DEBUG` está desactivado por defecto y debe establecerse una
 clave `DJANGO_SECRET_KEY` larga y aleatoria y la lista exacta `DJANGO_ALLOWED_HOSTS`.
 [.env.example](.env.example) muestra las variables, que deben configurarse en el

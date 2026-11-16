@@ -24,3 +24,11 @@ the requested entertainment references and authorship-tool discussion from READM
 
 Run typechecking, existing unit tests, browser tests against the built Pages
 artifact in Chromium/Firefox/WebKit, then verify the actual public deployment.
+
+Local evidence, 2026-11-17: TypeScript checks and all 11 existing frontend unit
+tests passed. All 19 original backend/detector cases passed after extracting the
+shared RGB entry point. The final minimal Pages runtime passed all 6 browser
+cases in Chromium, Firefox and WebKit, including real rectangle and spiral
+analysis, no uploads, accessibility rules and responsive widths. Runtime files
+total 48.5 MiB and are served from the same origin. README exclusion and link
+checks passed. Physical devices and OS clipboard integrations were not tested.

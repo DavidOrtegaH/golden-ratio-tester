@@ -1,0 +1,7 @@
+{
+  "roots": ["numpy", "scipy", "opencv-python", "scikit-image"],
+  "dependency_overrides": {
+    "scikit-image": ["numpy", "scipy", "packaging", "lazy-loader"]
+  },
+  "reason": "Only skimage.morphology.skeletonize is used. Browser-native image decoding supplies RGB arrays; skimage I/O, wavelets, graphs and plotting are not used. Do not add those imports without restoring their dependencies and verifying the runtime profile."
+}
