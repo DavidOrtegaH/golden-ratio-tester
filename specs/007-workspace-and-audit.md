@@ -30,3 +30,20 @@ rewrite the README with a personal technical learning section.
   Include accurate setup, limits, privacy, verification and license information.
 - Test relevant frontend interactions, backend failures/limits and image flow;
   record browser/device verification limits and audit findings candidly.
+
+## Completed verification — 2026-11-17
+
+- Single-document workflow verified in Chromium, Firefox and WebKit: 12 browser
+  cases passed, with no unexpected failures. Includes responsive widths 390/768/1280,
+  normal-form fallback, locale preservation, download and deletion.
+- 33 backend cases (32 full-suite cases plus the added production secret guard
+  exercised in the updated security suite) and 11 frontend cases passed.
+- axe checks of the tested result page: no detected A/AA violations. This does
+  not certify every state, device or assistive technology.
+- Pillow updated to 13.0.0. Final pinned-runtime pip-audit and npm audit: no known
+  vulnerabilities reported. Production boot guards, static collection and
+  deployment checks exercised; two domain-dependent HSTS decisions remain.
+- Repository renamed to DavidOrtegaH/golden-ratio-tester; Python package and locale
+  cookie renamed, retaining only explicit migration references to previous names.
+- README rewritten as requested, with project-grounded learning/solutions/results.
+  Audit scope, evidence and remaining limitations: docs/audit-2026-11-17.md.

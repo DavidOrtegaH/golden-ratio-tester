@@ -12,10 +12,10 @@ def decode(upload):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter('error', Image.DecompressionBombWarning)
-            with Image.open(upload) as source:
+            with Image.open(upload, formats=('JPEG', 'PNG', 'WEBP')) as source:
                 if source.format not in ('JPEG', 'PNG', 'WEBP') or getattr(source, 'n_frames', 1) != 1:
                     raise ValueError('format')
-                if source.width * source.height > 20_000_000 or min(source.size) < 32:
+                if source.width * source.height > 20_000_000 or min(source.size) < 32 or max(source.size) > 12000:
                     raise ValueError('pixels')
                 source.load()
                 normalized = ImageOps.exif_transpose(source).convert('RGBA')

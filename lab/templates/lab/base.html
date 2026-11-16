@@ -1,22 +1,22 @@
 {% load static %}<!doctype html>
 <html lang="{{ lang }}">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="{{ t.intro }}"><title>Golden Ratio Tester — {{ t.tagline }}</title>
+<meta name="description" content="{{ t.intro }}" data-i18n-attribute="content:intro"><title>Golden Ratio Tester — {{ t.tagline }}</title>
 <link rel="icon" type="image/svg+xml" href="{% static 'lab/favicon.svg' %}">
 <link rel="stylesheet" href="{% static 'lab/app.css' %}"></head>
-<body><a class="skip" href="#main">{{ t.skip }}</a>
+<body {% block body_attributes %}{% endblock %}><a class="skip" href="#main" data-i18n="skip">{{ t.skip }}</a>
 <header class="container py-4 border-bottom"><div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
-<a class="brand" href="{% url 'home' %}"><span class="brand-mark" aria-hidden="true">φ</span><span>Golden Ratio <span class="fw-normal">Tester</span></span></a>
+<a class="brand" href="{% url 'home' %}" data-action="workspace#newImage"><span class="brand-mark" aria-hidden="true">φ</span><span>Golden Ratio <span class="fw-normal">Tester</span></span></a>
 <div class="d-flex align-items-center gap-4 flex-wrap">
-<a class="text-decoration-none small d-none d-md-inline" href="{% url 'home' %}#method">{{ t.nav }}</a>
-<form action="{% url 'language' %}" method="post" class="d-flex gap-1" aria-label="{{ t.selected }}">{% csrf_token %}<input type="hidden" name="token" value="{{ token }}">
-<button class="btn lang-button {% if lang == 'es' %}btn-primary{% else %}btn-outline-primary{% endif %}" name="language" value="es" lang="es" aria-pressed="{% if lang == 'es' %}true{% else %}false{% endif %}"><img src="{% static 'lab/es.svg' %}" class="language-flag" alt=""> Español</button>
-<button class="btn lang-button {% if lang == 'en' %}btn-primary{% else %}btn-outline-primary{% endif %}" name="language" value="en" lang="en" aria-pressed="{% if lang == 'en' %}true{% else %}false{% endif %}"><img src="{% static 'lab/gb.svg' %}" class="language-flag" alt=""> English</button>
+<a class="text-decoration-none small d-none d-md-inline" href="{% url 'home' %}#method" data-i18n="nav">{{ t.nav }}</a>
+<form action="{% url 'language' %}" method="post" class="d-flex gap-1" aria-label="{{ t.selected }}" data-action="submit->workspace#language" data-i18n-attribute="aria-label:selected">{% csrf_token %}<input type="hidden" name="token" value="{{ token }}">
+<button class="btn lang-button {% if lang == 'es' %}btn-primary{% else %}btn-outline-primary{% endif %}" name="language" value="es" data-language-choice data-busy-control lang="es" aria-pressed="{% if lang == 'es' %}true{% else %}false{% endif %}"><img src="{% static 'lab/es.svg' %}" class="language-flag" alt=""> Español</button>
+<button class="btn lang-button {% if lang == 'en' %}btn-primary{% else %}btn-outline-primary{% endif %}" name="language" value="en" data-language-choice data-busy-control lang="en" aria-pressed="{% if lang == 'en' %}true{% else %}false{% endif %}"><img src="{% static 'lab/gb.svg' %}" class="language-flag" alt=""> English</button>
 </form></div></div></header>
 <main id="main" class="container">{% block content %}{% endblock %}</main>
 {% block scripts %}{% endblock %}
 <footer class="container py-4 mt-5 border-top">
-<details id="privacy" class="mb-4"><summary>{{ t.privacy }}</summary><div class="row mt-3 small text-secondary"><div class="col-md-6"><p>{{ t.privacy_body }}</p></div><div class="col-md-6"><p>{{ t.cookies }}</p>
-<form action="{% url 'language' %}" method="post">{% csrf_token %}<button class="btn btn-sm btn-outline-primary" name="language" value="reset">{{ t.reset }}</button></form></div></div></details>
-<div class="d-flex justify-content-between gap-3 flex-wrap footer-text text-secondary"><span>{{ t.credit }}</span><span>φ = 1.6180339887…</span></div></footer>
+<details id="privacy" class="mb-4"><summary data-i18n="privacy">{{ t.privacy }}</summary><div class="row mt-3 small text-secondary"><div class="col-md-6"><p data-i18n="privacy_body">{{ t.privacy_body }}</p></div><div class="col-md-6"><p data-i18n="cookies">{{ t.cookies }}</p>
+<p data-i18n="privacy_rate">{{ t.privacy_rate }}</p><form action="{% url 'language' %}" method="post" data-action="submit->workspace#language">{% csrf_token %}<button class="btn btn-sm btn-outline-primary" name="language" value="reset" data-busy-control data-i18n="reset">{{ t.reset }}</button></form></div></div></details>
+<div class="d-flex justify-content-between gap-3 flex-wrap footer-text text-secondary"><span data-i18n="credit">{{ t.credit }}</span><span>φ = 1.6180339887…</span></div></footer>
 </body></html>

@@ -36,7 +36,7 @@ try:
     owner = profile['login']
     if owner.lower() != 'davidortegah':
         raise SystemExit('Authenticated account does not match the requested author; publication stopped.')
-    name = 'proporcion-aurea'
+    name = 'golden-ratio-tester'
     try:
         existing = api(f'/repos/{owner}/{name}')
         raise SystemExit('Repository name already exists; inspect before linking or modifying it.')

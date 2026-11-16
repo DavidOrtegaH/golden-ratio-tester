@@ -7,9 +7,12 @@
     "build:styles": "sass --silence-deprecation=import,global-builtin,color-functions styles/app.scss lab/static/lab/app.css --style=compressed --no-source-map",
     "build:scripts": "esbuild frontend/app.ts --bundle --minify --target=es2020 --outfile=lab/static/lab/app.js",
     "typecheck": "tsc",
-    "test": "esbuild tests/clipboard.test.ts --bundle --platform=node --packages=external --format=esm --outfile=artifacts/tests/clipboard.test.mjs && node --test artifacts/tests/clipboard.test.mjs"
+    "test": "esbuild tests/clipboard.test.ts tests/workspace.test.ts --bundle --platform=node --packages=external --format=esm --outdir=artifacts/tests --out-extension:.js=.mjs && node --test artifacts/tests/clipboard.test.mjs artifacts/tests/workspace.test.mjs",
+    "test:e2e": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
     "@types/jsdom": "^30.0.0",
     "bootstrap": "^5.3.8",
     "esbuild": "^0.28.2",
@@ -19,5 +22,8 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2"
+  },
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
   }
 }

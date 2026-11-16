@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-17",
+  "backend_cases": 33,
+  "frontend_cases": 11,
+  "browser_cases": 12,
+  "browser_failures": 0,
+  "engines": [
+    "Chromium",
+    "Firefox",
+    "WebKit"
+  ],
+  "widths": [
+    390,
+    768,
+    1280
+  ],
+  "known_dependency_vulnerabilities": {
+    "npm": 0,
+    "python_runtime": 0
+  },
+  "notes": "Browser engines are automated; paste is an explicit event fixture. See the audit report for limits."
+}

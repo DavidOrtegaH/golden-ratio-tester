@@ -2,6 +2,7 @@
 import secrets
 import threading
 import time
+import math
 from collections import OrderedDict
 
 
@@ -51,6 +52,11 @@ class ResultStore:
             self.purge()
             item = self.items.get(token)
             return item[1] if item else None
+
+    def remaining(self, token):
+        with self.lock:
+            item = self.items.get(token)
+            return max(0, math.ceil(item[0] - time.monotonic())) if item else 0
 
 
 store = ResultStore()

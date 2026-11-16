@@ -11,6 +11,8 @@ changes and English Conventional Commits, e.g. `feat: detect rotated golden rect
 The initial release is fast-forwarded across the four branches after validation.
 
 Run `npm ci`, `npm run build`, `npm run typecheck`, `npm test`,
-`python manage.py check`, and `python manage.py test`.
+`python manage.py check`, and `python manage.py test` with `DJANGO_DEBUG=1`.
+Run `npm run test:e2e` after installing Playwright browsers for workflow/UI changes.
+Use Node 22.22.2+ or 24.15+ for the test dependencies.
 Do not commit uploads, tokens, personal filenames, secrets, or downloaded reference art.
 Do not claim measured accuracy on photographs without a labeled validation dataset.

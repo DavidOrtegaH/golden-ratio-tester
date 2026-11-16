@@ -1,5 +1,6 @@
 $primary: #155842;
 $secondary: #626a62;
+$danger: #b42336;
 $body-bg: #f8f7f2;
 $body-color: #20382d;
 $font-family-sans-serif: 'Segoe UI', system-ui, sans-serif;
@@ -26,10 +27,12 @@ body { -webkit-font-smoothing: antialiased; }
 .step-number { font-family: Georgia, serif; color: #6c8065; font-size: 2rem; }
 .method { border-block: 1px solid #dce1d7; }
 .result-image { max-height: 75vh; object-fit: contain; background: #edf0e9; }
+.input-preview { max-height: 18rem; object-fit: contain; width: 100%; }
 .result-count { font-family: Georgia, serif; font-size: 4rem; line-height: 1; }
 .language-flag { width: 1.3rem; height: .85rem; object-fit: cover; vertical-align: -.1rem; }
 .btn { padding: .65rem 1rem; }
-.lang-button { font-size: .78rem; padding: .4rem .6rem; }
+.lang-button { font-size: .78rem; padding: .4rem .6rem; min-height: 44px; }
+.form-control[type=file] { min-height: 44px; }
 .btn-outline-primary { background: transparent; }
 .footer-text { font-size: .77rem; }
 summary { cursor: pointer; font-weight: 600; }

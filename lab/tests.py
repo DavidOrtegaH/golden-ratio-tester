@@ -133,6 +133,9 @@ class UploadTests(SimpleTestCase):
 
 
 class FlowTests(SimpleTestCase):
+    def setUp(self):
+        from .limits import limiter
+        limiter.clear()
     @override_settings(DEBUG=True, ALLOWED_HOSTS=['localhost', 'testserver', 'example.com'])
     def test_preview_null_origin_requires_tokens_and_loopback(self):
         client = Client(enforce_csrf_checks=True, HTTP_HOST='localhost')
@@ -171,9 +174,9 @@ class FlowTests(SimpleTestCase):
     def test_r4_r5_r6_complete_flow(self):
         response = self.client.get('/')
         self.assertContains(response, 'lang="es"')
-        self.assertNotIn('aurea_language', response.cookies)
+        self.assertNotIn('golden_ratio_tester_language', response.cookies)
         response = self.client.post('/language/', {'language': 'en'})
-        self.assertEqual(response.cookies['aurea_language']['max-age'], 180 * 86400)
+        self.assertEqual(response.cookies['golden_ratio_tester_language']['max-age'], 180 * 86400)
         response = self.client.post('/', {'image': upload(Image.new('RGB', (809, 500), 'white'))})
         self.assertEqual(response.status_code, 302)
         url = response.url
@@ -189,7 +192,7 @@ class FlowTests(SimpleTestCase):
         self.assertEqual(self.client.get(f'/delete/{token}/').status_code, 405)
         self.client.post(f'/delete/{token}/')
         self.assertEqual(self.client.get(url).status_code, 404)
-        self.assertEqual(self.client.post('/language/', {'language': 'reset'}).cookies['aurea_language']['max-age'], 0)
+        self.assertEqual(self.client.post('/language/', {'language': 'reset'}).cookies['golden_ratio_tester_language']['max-age'], 0)
 
     def test_r6_csrf_and_headers(self):
         client = Client(enforce_csrf_checks=True)

@@ -13,7 +13,7 @@ const dom = new JSDOM(`<form data-controller="image-input" data-action="paste@wi
  <p data-image-input-target="status"></p><img hidden data-image-input-target="preview">
  </form>`, { url: "http://localhost/" });
 const window = dom.window;
-for (const name of ["window", "document", "MutationObserver", "Element", "Node", "HTMLElement", "KeyboardEvent", "MouseEvent", "File"] as const) {
+for (const name of ["window", "document", "MutationObserver", "Element", "Node", "HTMLElement", "KeyboardEvent", "MouseEvent", "CustomEvent", "File"] as const) {
   Object.defineProperty(globalThis, name, { configurable: true, value: name === "window" ? window : (window as any)[name] });
 }
 const revoked: string[] = [];

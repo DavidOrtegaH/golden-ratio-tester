@@ -1,10 +1,14 @@
-name: Verify specification
+name: Golden Ratio Tester checks
 on: [push, pull_request]
 permissions:
   contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      DJANGO_DEBUG: '1'
+      E2E_PYTHON: python
+      PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/artifacts/playwright-browsers
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -13,7 +17,7 @@ jobs:
           cache: pip
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
       - run: pip install -r requirements.lock
       - run: npm ci
@@ -23,3 +27,8 @@ jobs:
       - run: git diff --exit-code -- lab/static/lab/app.css lab/static/lab/app.js
       - run: python manage.py check
       - run: python manage.py test -v 2
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:e2e
+      - run: npm audit --audit-level=high
+      - run: pip install pip-audit==2.10.1
+      - run: pip-audit --disable-pip --no-deps -r requirements.lock
