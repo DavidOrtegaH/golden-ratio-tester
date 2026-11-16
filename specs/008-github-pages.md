@@ -32,3 +32,7 @@ cases in Chromium, Firefox and WebKit, including real rectangle and spiral
 analysis, no uploads, accessibility rules and responsive widths. Runtime files
 total 48.5 MiB and are served from the same origin. README exclusion and link
 checks passed. Physical devices and OS clipboard integrations were not tested.
+
+GitHub's Linux WebKit run exposed transient low contrast while Bootstrap
+interpolated language-button colors. Language buttons now change palette
+without a transition, preserving their final contrast throughout the switch.
