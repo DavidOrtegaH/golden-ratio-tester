@@ -97,9 +97,8 @@ def main():
     overrides = {
         'es': {
             'paste_hint': 'También puedes copiar una imagen y pegarla aquí con Ctrl+V o ⌘V. Se analizará en tu dispositivo cuando pulses Analizar.',
-            'temporary': 'Análisis en tu dispositivo · sin cuenta · sin subir imágenes',
             'method_intro': 'Una coincidencia visual merece una comprobación: buscamos relaciones que se puedan medir.',
-            'privacy_body': 'Tu imagen se procesa en este navegador y no se envía a un servidor. La selección y el resultado permanecen en memoria hasta que los eliminas, eliges otra imagen o cierras la página; el resultado caduca a los 15 minutos. GitHub sirve la página y los archivos del motor y recibe los datos habituales de conexión, pero no tu imagen.',
+            'privacy_body': 'En esta versión de GitHub Pages, el cálculo se realiza en el navegador. La selección y el resultado permanecen en memoria hasta que los eliminas, eliges otra imagen o cierras la página; el resultado caduca a los 15 minutos. GitHub sirve la página y los archivos del motor y recibe los datos habituales de conexión.',
             'privacy_rate': 'El primer análisis descarga un motor de cálculo de aproximadamente 50 MB. Puede tardar más en móviles y conexiones lentas. Puedes cancelar el análisis.',
             'cookies': 'Solo guardamos golden_ratio_tester_language después de que elijas un idioma: dura 180 días y se puede borrar aquí. No usamos cookies de publicidad, analítica ni seguimiento. GitHub puede conservar registros técnicos del alojamiento según su política de privacidad.',
             'expiry': 'El resultado se borra de esta página a los 15 minutos. La descarga siempre incluye las guías, aunque estén ocultas.',
@@ -111,9 +110,8 @@ def main():
         },
         'en': {
             'paste_hint': 'You can also copy an image and paste it here with Ctrl+V or ⌘V. It is analyzed on your device when you press Analyze.',
-            'temporary': 'On-device analysis · no account · no image uploads',
             'method_intro': 'A visual coincidence deserves a check: we look for relationships that can be measured.',
-            'privacy_body': 'Your image is processed in this browser and is not sent to a server. The selection and result stay in memory until you delete them, choose another image, or close the page; the result expires after 15 minutes. GitHub serves the page and engine files and receives normal connection data, but not your image.',
+            'privacy_body': 'In this GitHub Pages version, calculations run in the browser. The selection and result stay in memory until you delete them, choose another image, or close the page; the result expires after 15 minutes. GitHub serves the page and engine files and receives normal connection data.',
             'privacy_rate': 'The first analysis downloads a calculation engine of approximately 50 MB. Mobile devices and slow connections may take longer. You can cancel analysis.',
             'cookies': 'We only store golden_ratio_tester_language after you choose a language: it lasts 180 days and can be deleted here. We use no advertising, analytics, or tracking cookies. GitHub may retain technical hosting logs under its privacy policy.',
             'expiry': 'The result is cleared from this page after 15 minutes. Downloads always include the guides, even when hidden.',

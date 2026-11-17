@@ -50,8 +50,9 @@ no sustituye las licencias de esos componentes.
 
 ## Seguridad, privacidad y límites
 
-- Las peticiones del flujo de análisis son GET de archivos del mismo origen.
-  No se envían imágenes, píxeles ni resultados. No existe endpoint de subida.
+- En Pages, el cálculo se realiza en el navegador y las peticiones de red del
+  flujo de análisis son GET de archivos del mismo origen. Django utiliza su
+  propio servidor de procesamiento cuando se ejecuta esa variante.
 - Solo se crea una cookie de idioma tras una elección explícita. Su ámbito es
   el subdirectorio del proyecto; `SameSite=Lax`, `Secure` en HTTPS y 180 días.
   Se elimina desde el apartado de privacidad. No hay cookie CSRF en Pages.

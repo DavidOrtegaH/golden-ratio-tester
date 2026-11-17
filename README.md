@@ -115,8 +115,8 @@ El CSS y el script compilados están versionados; Node se necesita para modifica
 
 ## Privacidad y seguridad
 
-En **GitHub Pages**, las imágenes se procesan únicamente en tu navegador. No se
-suben a GitHub ni a un servicio de análisis. El resultado se elimina a los 15
+En la versión de **GitHub Pages**, el cálculo se realiza en el navegador.
+El resultado se elimina a los 15
 minutos o al pulsar Eliminar; también se libera al elegir otra imagen o cerrar
 la página. La única cookie de la aplicación recuerda el idioma después de
 elegirlo y se puede borrar desde el apartado de privacidad. GitHub recibe las
@@ -213,8 +213,7 @@ Para reproducir la evaluación del detector:
 
 La aplicación pública se publica automáticamente en GitHub Pages desde `main`.
 El detector Python se ejecuta en un worker del navegador mediante Pyodide y
-WebAssembly: no necesita un servidor de análisis y las imágenes no salen del
-dispositivo. El motor se descarga desde la misma web en el primer análisis.
+WebAssembly. El motor se descarga desde la misma web en el primer análisis.
 
 He conservado también la versión Django para ejecutarla localmente o alojarla
 en un servidor Python. Las instrucciones siguientes corresponden a esa versión.
